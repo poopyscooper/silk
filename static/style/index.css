@@ -1,78 +1,285 @@
-@import url("https://fonts.cdnfonts.com/css/helvetica-neue-55");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Silk Theme CSS - Modern, Clean, Animated */
+
+:root {
+  --silk-primary: #f8f6f3;
+  --silk-secondary: #e8e4e0;
+  --silk-accent: #d4c4b7;
+  --silk-dark: #2c2c2c;
+  --silk-text: #3a3a3a;
+  --silk-shadow: rgba(0, 0, 0, 0.08);
+  --silk-glow: rgba(212, 196, 183, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  background-color: black;
-  overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, var(--silk-primary) 0%, var(--silk-secondary) 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(212, 196, 183, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(248, 246, 243, 0.8) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(232, 228, 224, 0.3) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: -1;
 }
 
 .svg-logo {
   display: flex;
   height: 100vh;
   margin: auto;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: silkFadeIn 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 .home {
-  font-family: 'Helvetica Neue', sans-serif;
   text-align: center;
-  color: white;
+  color: var(--silk-text);
+  opacity: 0;
+  animation: silkSlideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
 }
 
 .home h1 {
-  font-size: 100px;
-  margin-top: 30vh;
-  margin-bottom: 2vh;
+  font-size: clamp(4rem, 8vw, 8rem);
+  font-weight: 300;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, var(--silk-text) 0%, var(--silk-accent) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  letter-spacing: -0.02em;
+}
+
+.home h1::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--silk-accent), transparent);
+  animation: silkLineExpand 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards;
 }
 
 .home h3 {
-  font-size: 30px;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 400;
+  color: var(--silk-accent);
+  margin-bottom: 3rem;
+  opacity: 0.8;
+  animation: silkFadeIn 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards;
 }
 
 .search {
-  width: 45%;
-  height: 50px;
+  width: min(90%, 500px);
+  height: 60px;
   text-align: center;
-  color: white;
-  border-radius: 5px;
-  border: hidden;
-  font-size: 20px;
-  background-color: rgba(237, 231, 225, 0.1);
-}
-
-::placeholder {
-  color: grey;
+  color: var(--silk-text);
+  border: none;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-family: inherit;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  box-shadow: 
+    0 8px 32px var(--silk-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  opacity: 0;
+  animation: silkScaleIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s forwards;
 }
 
 .search:focus {
-  border: hidden;
   outline: none;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 12px 40px var(--silk-shadow),
+    0 0 0 3px var(--silk-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
 }
 
-@keyframes svg-text-anim {
-  40% {
-    stroke-dashoffset: 0;
-    fill: transparent;
+.search:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 12px 40px var(--silk-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+::placeholder {
+  color: var(--silk-accent);
+  opacity: 0.6;
+}
+
+/* Silk Animations */
+@keyframes silkFadeIn {
+  from {
+    opacity: 0;
   }
-  60% {
-    stroke-dashoffset: 0;
-    fill: yellow;
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes silkSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes silkScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes silkLineExpand {
+  from {
+    width: 0;
+  }
+  to {
+    width: 200px;
+  }
+}
+
+/* Floating silk particles */
+.silk-particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.silk-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--silk-accent);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: silkFloat 8s infinite linear;
+}
+
+.silk-particle:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+  animation-duration: 12s;
+}
+
+.silk-particle:nth-child(2) {
+  top: 60%;
+  left: 80%;
+  animation-delay: 2s;
+  animation-duration: 10s;
+}
+
+.silk-particle:nth-child(3) {
+  top: 80%;
+  left: 20%;
+  animation-delay: 4s;
+  animation-duration: 14s;
+}
+
+.silk-particle:nth-child(4) {
+  top: 30%;
+  left: 70%;
+  animation-delay: 6s;
+  animation-duration: 11s;
+}
+
+.silk-particle:nth-child(5) {
+  top: 70%;
+  left: 60%;
+  animation-delay: 8s;
+  animation-duration: 13s;
+}
+
+@keyframes silkFloat {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.3;
+  }
+  25% {
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+    opacity: 0.3;
+  }
+  75% {
+    opacity: 0.6;
   }
   100% {
-    stroke-dashoffset: 0;
-    fill: red;
+    transform: translateY(0) rotate(360deg);
+    opacity: 0.3;
   }
 }
 
-span {
-  background: radial-gradient(gray, gray, lightgrey, white);
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: animatedTextGradient 1.5s linear infinite;
+/* Responsive design */
+@media (max-width: 768px) {
+  .home h1 {
+    font-size: clamp(3rem, 12vw, 5rem);
+  }
+  
+  .home h3 {
+    font-size: clamp(1rem, 4vw, 1.4rem);
+  }
+  
+  .search {
+    width: 90%;
+    height: 55px;
+    font-size: 1rem;
+  }
 }
 
-@keyframes animatedTextGradient {
-  to {
-    background-position: 200% center;
-  }
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection styling */
+::selection {
+  background: var(--silk-accent);
+  color: var(--silk-primary);
+}
+
+::-moz-selection {
+  background: var(--silk-accent);
+  color: var(--silk-primary);
 }
 
